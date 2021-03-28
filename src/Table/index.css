@@ -1,0 +1,64 @@
+.table table {
+  min-width: 520px;
+  width: 100%;
+  opacity: 1;
+  border-collapse: collapse;
+  position: relative;
+}
+
+.table th, td {
+  padding: 8px 16px;
+  vertical-align: top;
+  outline-width: 0;
+}
+
+.table thead {
+  color: #6f7c80;
+}
+
+.table thead th {
+  padding: 4px 16px;
+}
+
+.table thead th > div {
+  text-align: left;
+  outline-width: 0;
+}
+
+.table tbody tr {
+  cursor: pointer;
+  transition:  all cubic-bezier(0.55, 0, 0.1, 1) 0.1s;
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: #f7f7fd;
+}
+
+.table tbody tr:hover {
+  color: #101111;
+  background-color: #e9e9fa;
+}
+
+.table__body {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table__body::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+  background-color: transparent;
+}
+
+.table__body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #bebef2;
+}
+
+.table__title {
+  margin-right: 0.5em;
+  font-size: 0.875rem;
+}
