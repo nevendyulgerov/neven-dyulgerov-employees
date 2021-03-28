@@ -11,6 +11,8 @@ body {
 .app {
   max-width: 960px;
   margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 .app a {
