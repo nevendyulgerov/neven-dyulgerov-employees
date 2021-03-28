@@ -26,7 +26,7 @@ The app becomes available at http://localhost:3000. Please note that in developm
 
 ## Build the app for production
 
-To run the app:
+To build the app for production with minified resources, run:
 ```
 npm build
 ```
