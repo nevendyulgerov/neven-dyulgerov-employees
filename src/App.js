@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getOverlappingDaysInIntervals } from 'date-fns';
+import { max, min, differenceInDays } from 'date-fns';
 import FilePicker from './FilePicker';
 import Table from './Table';
 import './index.css';
@@ -17,7 +17,8 @@ const App = () => {
           employeeId: employeeId.trim(),
           projectId: projectId.trim(),
           dateFrom: new Date(dateFrom.trim()),
-          dateTo: dateTo.trim() === 'NULL' ? new Date() : new Date(dateTo.trim())
+          dateTo: dateTo.trim() === 'NULL' ? new Date() : new Date(dateTo.trim()),
+          isToday: dateTo.trim() === 'NULL'
         }
       });
 
@@ -55,17 +56,25 @@ const App = () => {
               employeeId: employee.employeeId,
               // get the days worked with the other employees
               daysWorked: otherEmployees
-                .map((otherEmployee) => ({
-                  employeeId: otherEmployee.employeeId,
-                  // calculate the overlapping days worked of the employee and the other employee
-                  daysWorked: getOverlappingDaysInIntervals({
-                    start: employee.dateFrom,
-                    end: employee.dateTo
-                  }, {
-                    start: otherEmployee.dateFrom,
-                    end: otherEmployee.dateTo
-                  })
-                }))
+                .map((otherEmployee) => {
+                  const start = max([
+                    employee.dateFrom,
+                    otherEmployee.dateFrom
+                  ]);
+
+                  const end = employee.isToday || otherEmployee.isToday
+                    ? new Date()
+                    : min([
+                      employee.dateTo,
+                      otherEmployee.dateTo
+                    ]);
+
+                  return {
+                    employeeId: otherEmployee.employeeId,
+                    // calculate the overlapping days worked of the employee and the other employee
+                    daysWorked: differenceInDays(end, start)
+                  };
+                })
                 // sort the overlapping days in descending order
                 .sort((a, b) => (
                   b.daysWorked - a.daysWorked
