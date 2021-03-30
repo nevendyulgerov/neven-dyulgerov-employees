@@ -79,6 +79,9 @@ const App = () => {
                 .sort((a, b) => (
                   b.daysWorked - a.daysWorked
                 ))
+                .filter((otherEmployee) => (
+                  otherEmployee.daysWorked >= 0
+                ))
             }
           })
           // filter out employees that worked alone on a project
